@@ -25,7 +25,7 @@ app.get("/api/:path" , (req , res) => {
     const d = req.params.path ;
     //let a = d.length ;
     
-    pathArray[d[0]] =  d.substring(1) ;
+    pathArray[d[d.length - 1]] =  d ;
 
     res.send("path saved successfully") ;
 })
