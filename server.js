@@ -13,19 +13,35 @@ app.get("/api/hello" , function (req ,res){
     res.json({greeting: 'hello API'}) ;
 }) ;
 
-let pathArray = [[0],[0],[0],[0],[0],[0],[0],[0]] ; 
+var routeInfo = {
+    "source": "0" ,
+    "destination": "0" ,
+    "path": "0" ,
+    "city": "Delhi"
+} ;
+
+//let pathArray = [[0],[0],[0],[0],[0],[0],[0],[0]] ; using dictionary now
 //API endpoint without Date
 app.get("/api/paths/" , (req ,res)=> {
-    res.json( {pathlengths : pathArray}) ;
+    res.json( routeInfo ) ;
     
 }) ;
 
-//API endpoint with date parameter
+//API endpoint with path parameter
 app.get("/api/:path" , (req , res) => {
-    const d = req.params.path ;
+    var d = req.params.path ;
     //let a = d.length ;
+    var route = d.split('-')[0] ;
+    console.log(route) ;
+    let cityName = d.split('-')[1] ;
+    console.log(cityName) ;
+
+    routeInfo["source"] = route[0] ;
+    routeInfo["destination"] = route[route.length -1] ;
+    routeInfo["path"] = route ;
+    routeInfo["city"] = cityName ;
     
-    pathArray[d[d.length - 1]] =  d ;
+    //pathArray[d[d.length - 1]] =  d ;
 
     res.send("path saved successfully") ;
 })
